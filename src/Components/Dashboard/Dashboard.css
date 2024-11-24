@@ -1,75 +1,147 @@
-/* General styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #2a2a2a; /* Dark background */
-    color: white;
-  }
-  
-  .dashboard {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-  }
-  
-  .dashboard-container {
-    width: 90%;
-    max-width: 1200px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  /* Top Section */
-  .dashboard-container-top {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-bar {
-    width: 100%;
-    max-width: 600px;
-    padding: 10px 15px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Center Section */
-  .dashboard-container-center {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-  }
-  
-  .dashboard-container-center-left,
-  .dashboard-container-center-right {
-    background: #333; /* Card background */
-    flex: 1;
-    height: 200px; /* Match reference image height */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Bottom Section */
-  .dashboard-container-bottom {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-  }
-  
-  .dashboard-container-bottom-left,
-  .dashboard-container-bottom-right {
-    background: #333; /* Card background */
-    flex: 1;
-    height: 250px; /* Match reference image height */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: #E4F2F7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #4A90E2, #A4C8E1); /* Light gradient background */
+}
+
+
+.dashboard-header h2 {
+  font-size: 1.8rem;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+
+.dashboard-tabs {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 20px;
+  width: 100%;
+}
+
+
+.dashboard-tab {
+  padding: 14px 30px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  background: #4A90E2;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-tab:hover {
+  background: #357ABD;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dashboard-tab.active-tab {
+  background: #357ABD;
+  transform: translateY(0);
+}
+
+
+.dashboard-search {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-search input {
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  border: 2px solid #4A90E2;
+  border-radius: 25px;
+  outline: none;
+  width: 70%;
+  transition: border 0.3s ease;
+}
+
+.dashboard-search input:focus {
+  border-color: #357ABD;
+}
+
+.dashboard-search button {
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  color: white;
+  background: #4A90E2;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background 0.3s ease;
+}
+
+.dashboard-search button:hover {
+  background: #357ABD;
+}
+
+.dashboard-weather {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.weather-widget {
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 12px;
+  width: 150px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.weather-widget:hover {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+}
+
+.weather-widget .weather-icon {
+  font-size: 3rem;
+  color: #4A90E2;
+}
+
+.weather-widget .weather-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+  margin-top: 10px;
+}
+
+.weather-widget .weather-value {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #555;
+  margin-top: 5px;
+}
+
+.dashboard-error {
+  color: #e74c3c;
+  font-size: 1.1rem;
+  margin-top: 20px;
+}
