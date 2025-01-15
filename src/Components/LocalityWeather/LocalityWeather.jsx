@@ -12,29 +12,39 @@ const LocalityWeather = () => {
   const [searchQuery, setSearchQuery] = useState(""); 
   const [sortBy, setSortBy] = useState("temperature");
   const [filterCondition, setFilterCondition] = useState("");
+  const [loading, setLoading] = useState(true); // Added loading state for better UX
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      const weatherPromises = localities.map(async (locality) => {
-        const response = await fetch(
-          `${api.base}weather?lat=${locality.latitude}&lon=${locality.longitude}&units=metric&appid=${api.key}`
-        );
-        const data = await response.json();
-        return {
-          localityName: locality.localityName,
-          temperature: data.main?.temp || "N/A",
-          condition: data.weather ? data.weather[0]?.description : "N/A",
-          humidity: data.main?.humidity || "N/A",
-          windSpeed: data.wind?.speed || "N/A",
-        };
-      });
+      try {
+        const weatherPromises = localities.map(async (locality) => {
+          const response = await fetch(
+            `${api.base}weather?lat=${locality.latitude}&lon=${locality.longitude}&units=metric&appid=${api.key}`
+          );
+          if (!response.ok) {
+            throw new Error(`Failed to fetch data for ${locality.localityName}`);
+          }
+          const data = await response.json();
+          return {
+            localityName: locality.localityName,
+            temperature: data.main?.temp || "N/A",
+            condition: data.weather ? data.weather[0]?.description : "N/A",
+            humidity: data.main?.humidity || "N/A",
+            windSpeed: data.wind?.speed || "N/A",
+          };
+        });
 
-      const results = await Promise.all(weatherPromises);
-      setWeatherData(results);
+        const results = await Promise.all(weatherPromises);
+        setWeatherData(results);
+        setLoading(false); // Set loading to false once data is fetched
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+        setLoading(false);
+      }
     };
 
     fetchWeatherData();
-  }, []);
+  }, [api.base, api.key]); // Explicitly added `api.base` and `api.key` to the dependencies
 
   const filteredData = weatherData.filter((weather) => {
     const matchesSearchQuery =
@@ -84,8 +94,10 @@ const LocalityWeather = () => {
         </select>
 
         <div className="localityweather-list">
-          {sortedData.length === 0 ? (
+          {loading ? (
             <p>Loading weather data...</p>
+          ) : sortedData.length === 0 ? (
+            <p>No weather data found.</p>
           ) : (
             sortedData.map((weather, index) => (
               <div key={index} className="localityweather-item">
